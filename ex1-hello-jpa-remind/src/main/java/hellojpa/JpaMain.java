@@ -23,32 +23,52 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member1 = new Member();
-            member1.setUsername("junwoo");
+            Member member = new Member();
+            member.setUsername("junwoo");
+            em.persist(member);
 
-            em.persist(member1);
+            Member newMember = new Member();
+            newMember.setUsername("junwoo");
+            em.persist(newMember);
 
-            Member member2 = new Member();
-            member2.setUsername("junwoo");
-
-            em.persist(member2);
-
-            Member member3 = new Member();
-            member3.setUsername("junwoo");
-
-            em.persist(member3);
+            Member newMember2 = new Member();
+            newMember2.setUsername("junwoo");
+            em.persist(newMember2);
 
             em.flush();
             em.clear();
 
-            Member m1 = em.find(Member.class, member1.getId());
-            Member m2 = em.find(Member.class, member2.getId());
-            Member m3 = em.getReference(Member.class, member3.getId());
+            Member member1 = em.find(Member.class, member.getId());
+            System.out.println("member1.getClass() = " + member1.getClass());
 
-            System.out.println("m1 == m2 :: " + (m1.getClass() == m2.getClass()));
-            System.out.println("m1 == m3 :: " + (m1.getClass() == m3.getClass()));
+            Member member2 = em.getReference(Member.class, member.getId());
+            System.out.println("member2.getClass() = " + member2.getClass());
 
-            logic(m1, m3);
+            /**
+             * JPA는 같은 영속성 컨텍스트 및 트랜잭션 내에서는
+             * 항상 == 비교시 true를 반환하게 설계되어 있다.
+             * */
+            System.out.println("member1 == member2 :: " + (member1 == member2));
+
+
+            /**
+             * 무조건 같은 영속성 컨텍스트에서는 == 이 true가 되게 강제한다.
+             * */
+            //step01
+            Member member3 = em.getReference(Member.class, newMember.getId());
+            System.out.println("member3.getClass() = " + member3.getClass());
+            Member member4 = em.getReference(Member.class, newMember.getId());
+            System.out.println("member4.getClass() = " + member4.getClass());
+
+            System.out.println("member3 == member4 :: " + (member3 == member4));
+
+            //step02
+            Member member5 = em.getReference(Member.class, newMember2.getId());
+            System.out.println("member5.getClass() = " + member5.getClass());
+            Member member6 = em.find(Member.class, newMember2.getId());
+            System.out.println("member6.getClass() = " + member6.getClass());
+
+            System.out.println("member5 == member6 :: " + (member5 == member6));
 
             tx.commit();
         } catch (Exception e) {
