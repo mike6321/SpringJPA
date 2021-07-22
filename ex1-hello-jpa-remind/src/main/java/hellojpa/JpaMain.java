@@ -25,23 +25,7 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUsername("junwoo");
-            em.persist(member);
 
-            em.flush();
-            em.clear();
-
-            Member refMember = em.getReference(Member.class, member.getId());
-            System.out.println("refMember.getClass() = " + refMember.getClass());
-
-//            refMember.getUsername();
-            //프록시 인스턴스 강제 초기화
-            Hibernate.initialize(refMember);
-
-            //프록시 인스턴스 초기화 여부 확인
-            boolean loaded = emf.getPersistenceUnitUtil().isLoaded(refMember);
-            System.out.println("loaded = " + loaded);
 
         } catch (Exception e) {
             em.close();
@@ -49,16 +33,6 @@ public class JpaMain {
         }
         emf.close();
 
-    }
-
-    /**
-     * 실제로는 이렇게 쓰이기 때문에
-     * 프록시 타입인지 아닌지를 구분하기 힘들다.
-     * 그렇기 때문에 == 비교 대신 instanceof 를 사용하자!
-     * */
-    private static void logic(Member m1, Member m3) {
-        System.out.println(m1 instanceof Member);
-        System.out.println(m3 instanceof Member);
     }
 
 }
