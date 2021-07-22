@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 /**
  * Project : ex1-hello-jpa-remind
@@ -24,24 +25,36 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+            Team team1 = new Team();
+            team1.setName("teamA");
+            em.persist(team1);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setTeam(team);
-            em.persist(member);
+            Team team2 = new Team();
+            team2.setName("teamA");
+            em.persist(team2);
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(team1);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member1");
+            member2.setTeam(team2);
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            Member m = em.find(Member.class, member.getId());
-            System.out.println("m = " + m.getTeam().getClass());
+//            Member m = em.find(Member.class, member.getId());
+//            List<Member> members = em.createQuery("select m from Member m", Member.class)
+//                    .getResultList();
+            //SQL : select * from Member;
+            //SQL : select * from Team;
 
-            System.out.println("**********************");
-            System.out.println(m.getTeam().getName());
-            System.out.println("**********************");
+            //해결방법 : 패치조인
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class)
+                    .getResultList();
 
         } catch (Exception e) {
             em.close();
