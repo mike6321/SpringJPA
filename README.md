@@ -57,13 +57,11 @@ Spring-JPA 공부를 위한 repository 입니다.
 
 [Mapped Superclass - 매핑 정보 상속](https://www.notion.so/Mapped-Superclass-47c87dfbc9dd40d5aeb5caa79e95084a)
 
-실전 예제 4 - 상속관계 매핑
-
 
 
 ## section05
 
-프록시
+[프록시](https://elderly-yak-238.notion.site/c361d9a02bcb4044a0ec26fd3a3e4b76)
 
 즉시 로딩과 지연 로딩
 
