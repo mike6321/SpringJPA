@@ -1,8 +1,7 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * Project : ex1-hello-jpa-remind
@@ -12,7 +11,7 @@ import java.util.List;
  * Time : 4:33 오후
  */
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
@@ -20,5 +19,12 @@ public class Member extends BaseEntity {
 
     @Column(name = "USERNAME")
     private String username;
+
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    private String city;
+    private String street;
+    private String zipcode;
 
 }
