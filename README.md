@@ -63,8 +63,20 @@ Spring-JPA 공부를 위한 repository 입니다.
 
 [프록시](https://elderly-yak-238.notion.site/c361d9a02bcb4044a0ec26fd3a3e4b76)
 
-즉시 로딩과 지연 로딩
+[즉시 로딩과 지연 로딩](https://elderly-yak-238.notion.site/440a3375ee3f4a0993a36391f1a96887)
 
-영속성 전이(CASCADE)와 고아 객체
+[영속성 전이(CASCADE)와 고아 객체](https://elderly-yak-238.notion.site/CASCADE-8aba7b5731e948f7961275cbfaece521)
 
-실전 예제 5 - 연관관계 관리
+
+
+## section05
+
+기본값 타입
+
+임베디드 타입
+
+값 타입과 불변 객체
+
+값 타입의 비교
+
+값 타입 컬렉션
