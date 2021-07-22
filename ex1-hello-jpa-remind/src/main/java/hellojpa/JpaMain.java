@@ -40,7 +40,7 @@ public class JpaMain {
             System.out.println("m = " + m.getTeam().getClass());
 
             System.out.println("**********************");
-            m.getTeam().getName();
+            System.out.println(m.getTeam().getName());
             System.out.println("**********************");
 
         } catch (Exception e) {
