@@ -1,12 +1,9 @@
 package hellojpa;
 
-import org.hibernate.Hibernate;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 /**
  * Project : ex1-hello-jpa-remind
@@ -25,6 +22,12 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member member = new Member();
+            member.setUsername("hello");
+            member.setHomeAddress(new Address("city", "street", "zipcode"));
+            member.setWorkPeriod(new Period());
+
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {

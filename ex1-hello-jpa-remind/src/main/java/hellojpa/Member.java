@@ -20,11 +20,44 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    //기간
+    @Embedded
+    private Period workPeriod;
 
-    private String city;
-    private String street;
-    private String zipcode;
+    //주소
+    @Embedded
+    private Address homeAddress;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Period getWorkPeriod() {
+        return workPeriod;
+    }
+
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 
 }
