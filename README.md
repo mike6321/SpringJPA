@@ -71,12 +71,6 @@ Spring-JPA 공부를 위한 repository 입니다.
 
 ## section05
 
-기본값 타입
+[기본값 타입](https://elderly-yak-238.notion.site/b2ebd230d85b42c68648d971baf11d71)
 
-임베디드 타입
-
-값 타입과 불변 객체
-
-값 타입의 비교
-
-값 타입 컬렉션
+[임베디드 타입](https://elderly-yak-238.notion.site/028b2797aa8a4cf1b074d55d6899a6f2)
