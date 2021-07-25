@@ -81,6 +81,7 @@ public class Member {
     }
 
     public void setUsername(String username) {
+
         this.username = username;
     }
 
