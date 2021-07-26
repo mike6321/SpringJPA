@@ -4,8 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Project : ex1-hello-jpa-remind
@@ -34,8 +32,8 @@ public class JpaMain {
             member.getFavoriteFoods().add("피자");
 
 
-            member.getAddressHistory().add(new Address("old1", "street", "10000"));
-            member.getAddressHistory().add(new Address("old2", "street", "10000"));
+            member.getAddressHistory().add(new AddressEntity("old1", "street", "10000"));
+            member.getAddressHistory().add(new AddressEntity("old2", "street", "10000"));
 
             em.persist(member);
 
@@ -88,8 +86,8 @@ public class JpaMain {
              * 값 타입 컬렉션에 변경 사항이 발생하면, 중니 엔티티와 연관된 모든 데이터를 삭제 후 현재 값을 모두 다시 저장
              * */
 
-            findMember.getAddressHistory().remove(new Address("old1", "street", "10000"));
-            findMember.getAddressHistory().add(new Address("newCity1", "street", "10000"));
+            findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "10000"));
+            findMember.getAddressHistory().add(new AddressEntity("newCity1", "street", "10000"));
             /**
              * 컬렉션 타입 값 수정
              * : equals와 hashcode가 재정의 되어야한다.
