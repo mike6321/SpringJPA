@@ -25,13 +25,6 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            /**
-             * 파라미터 바인딩
-             * */
-            TypedQuery<Member> query1 = em.createQuery("select m from Member m where m.username = :username", Member.class);
-            query1.setParameter("username", "member1");
-            Member singleResult = query1.getSingleResult();
-            System.out.println("singleResult = " + singleResult.getUsername());
 
             tx.commit();
         } catch (Exception e) {
