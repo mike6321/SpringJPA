@@ -28,23 +28,32 @@ public class JpaMain {
             member.setUsername("member");
             member.setAge(10);
             member.changeTeam(team);
+            member.setType(MemberType.ADMIN);
             em.persist(member);
 
             em.flush();
             em.clear();
 
             /**
-             * 조인
+             * JPQL 타입 표현과 기타식
              * */
-            // inner
-            List<Member> resultList1 = em.createQuery("select m from Member m inner join m.team t", Member.class)
-                                        .getResultList();
-            //outer
-            List<Member> resultList2 = em.createQuery("select m from Member m left join m.team t", Member.class)
-                                         .getResultList();
-            //setter
-            List<Member> resultList3 = em.createQuery("select m from Member m, Team t where m.username = t.name", Member.class)
-                                         .getResultList();
+            List<Object[]> resultList = em.createQuery("select m.username, 'HELLO', TRUE from Member m")
+                                .getResultList();
+            for (Object[] o : resultList) {
+                System.out.println("objects = " + o[0]);
+                System.out.println("objects = " + o[1]);
+                System.out.println("objects = " + o[2]);
+            }
+
+            //Enum
+            List<Object[]> resultList2 = em.createQuery("select m.username, 'HELLO', TRUE from Member m where m.type = jpql.MemberType.ADMIN")
+                                            .getResultList();
+            for (Object[] objects : resultList2) {
+                System.out.println("objects = " + objects[0]);
+                System.out.println("objects = " + objects[1]);
+                System.out.println("objects = " + objects[2]);
+            }
+
 
 
 
