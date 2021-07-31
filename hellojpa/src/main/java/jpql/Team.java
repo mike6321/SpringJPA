@@ -33,4 +33,12 @@ public class Team {
         this.name = name;
     }
 
+    public List<Member> getMembers() {
+        return Members;
+    }
+
+    public void setMembers(List<Member> members) {
+        Members = members;
+    }
+
 }

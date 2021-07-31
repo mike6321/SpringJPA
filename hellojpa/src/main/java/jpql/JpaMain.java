@@ -27,6 +27,7 @@ public class JpaMain {
             Member member = new Member();
             member.setUsername("member");
             member.setAge(10);
+            member.changeTeam(team);
             em.persist(member);
 
             em.flush();
@@ -35,6 +36,17 @@ public class JpaMain {
             /**
              * 조인
              * */
+            // inner
+            List<Member> resultList1 = em.createQuery("select m from Member m inner join m.team t", Member.class)
+                                        .getResultList();
+            //outer
+            List<Member> resultList2 = em.createQuery("select m from Member m left join m.team t", Member.class)
+                                         .getResultList();
+            //setter
+            List<Member> resultList3 = em.createQuery("select m from Member m, Team t where m.username = t.name", Member.class)
+                                         .getResultList();
+
+
 
             tx.commit();
         } catch (Exception e) {
