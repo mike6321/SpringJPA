@@ -32,19 +32,8 @@ public class JpaMain {
             em.clear();
 
             /**
-             * 페이징
-             * 방언에 따라서 전략을 설정하여 페이징 쿼리가 나간다.
-             *
+             * 조인
              * */
-            List<Member> result = em.createQuery("select m from Member m order by m.age desc ", Member.class)
-                                    .setFirstResult(1)
-                                    .setMaxResults(10)
-                                    .getResultList();
-
-            System.out.println("result.size" + result.size());
-            for (Member member1 : result) {
-                System.out.println("member1 = " + member1);
-            }
 
             tx.commit();
         } catch (Exception e) {
