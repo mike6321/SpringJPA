@@ -35,27 +35,8 @@ public class JpaMain {
             em.clear();
 
             /**
-             * JPQL 타입 표현과 기타식
+             *
              * */
-            List<Object[]> resultList = em.createQuery("select m.username, 'HELLO', TRUE from Member m")
-                                .getResultList();
-            for (Object[] o : resultList) {
-                System.out.println("objects = " + o[0]);
-                System.out.println("objects = " + o[1]);
-                System.out.println("objects = " + o[2]);
-            }
-
-            //Enum
-            List<Object[]> resultList2 = em.createQuery("select m.username, 'HELLO', TRUE from Member m where m.type = jpql.MemberType.ADMIN")
-                                            .getResultList();
-            for (Object[] objects : resultList2) {
-                System.out.println("objects = " + objects[0]);
-                System.out.println("objects = " + objects[1]);
-                System.out.println("objects = " + objects[2]);
-            }
-
-
-
 
             tx.commit();
         } catch (Exception e) {
