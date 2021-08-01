@@ -48,13 +48,21 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m join fetch m.team";
-            List<Member> result1 = em.createQuery(query, Member.class)
+            String query = "select t from Team t join fetch t.Members";
+            List<Team> result1 = em.createQuery(query, Team.class)
                                      .getResultList();
 
-            for (Member member : result1) {
-
+            for (Team team : result1) {
+                System.out.println("team = " + team.getName() + ", members = " + team.getMembers().size());
             }
+            /**
+             * 실행결과
+             * team = 팀A, members = 2
+             * team = 팀A, members = 2
+             * team = 팀B, members = 1
+             *
+             * 팀A가 중복이다. 이유는 member가 두개이기 때문이다.
+             * */
 
             tx.commit();
         } catch (Exception e) {
