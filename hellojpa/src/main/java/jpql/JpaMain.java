@@ -48,20 +48,18 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select t from Team t join fetch t.Members";
+            String query = "select t from Team t";
             List<Team> result1 = em.createQuery(query, Team.class)
                                      .getResultList();
 
-            for (Team team : result1) {
-                System.out.println("team = " + team.getName() + ", members = " + team.getMembers().size());
-            }
+            System.out.println("result1 = " + result1.size());
+
+            String query2 = "select t from Team t join fetch t.Members";
+            List<Team> result2 = em.createQuery(query2, Team.class)
+                                   .getResultList();
+            System.out.println("result2 = " + result2.size());
             /**
-             * 실행결과
-             * team = 팀A, members = 2
-             * team = 팀A, members = 2
-             * team = 팀B, members = 1
-             *
-             * 팀A가 중복이다. 이유는 member가 두개이기 때문이다.
+             * join fetch 를 걸면서 데이터가 뻥튀기 되었다.
              * */
 
             tx.commit();
