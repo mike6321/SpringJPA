@@ -54,12 +54,13 @@ public class JpaMain {
 
             System.out.println("result1 = " + result1.size());
 
-            String query2 = "select t from Team t join fetch t.Members";
+            String query2 = "select distinct t from Team t join fetch t.Members";
             List<Team> result2 = em.createQuery(query2, Team.class)
                                    .getResultList();
             System.out.println("result2 = " + result2.size());
             /**
-             * join fetch 를 걸면서 데이터가 뻥튀기 되었다.
+             * distinct는 데이터가 완전히 동일해만 중복이 제가 된다.
+             * JPA가 중복이 될 만한 것을 어플리케이션 레벨에서 삭제한다.
              * */
 
             tx.commit();
