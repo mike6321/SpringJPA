@@ -10,4 +10,7 @@ public class Ex1HelloJpaApplication {
 		SpringApplication.run(Ex1HelloJpaApplication.class, args);
 	}
 
+
+
+	
 }
