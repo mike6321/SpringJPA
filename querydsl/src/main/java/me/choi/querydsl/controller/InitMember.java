@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Profile("local")
-@Component
+//@Component
 @RequiredArgsConstructor
 public class InitMember {
 
