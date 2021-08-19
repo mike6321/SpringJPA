@@ -2,6 +2,7 @@ package me.choi.querydsl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import me.choi.querydsl.entity.Member;
+import me.choi.querydsl.entity.QMember;
 import me.choi.querydsl.entity.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,4 +64,25 @@ public class QuerydslBasicTest {
         assertThat(findMember.getUsername()).isEqualTo("member1");
     }
 
+    @Test
+    public void search() {
+        Member findMember = queryFactory.selectFrom(QMember.member)
+                                        .where(QMember.member.username.eq("member1")
+                                                                      .and(QMember.member.age.eq(10)))
+                                        .fetchOne();
+
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void searchAndParam() {
+        Member findMember = queryFactory.selectFrom(QMember.member)
+                .where(
+                        member.username.eq("member1"),
+                        member.age.between(10, 20)
+                )
+                .fetchOne();
+
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
 }
