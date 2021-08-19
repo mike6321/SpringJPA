@@ -5,7 +5,6 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import me.choi.querydsl.entity.Member;
 import me.choi.querydsl.entity.QMember;
-import me.choi.querydsl.entity.QTeam;
 import me.choi.querydsl.entity.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 import static me.choi.querydsl.entity.QMember.member;
-import static me.choi.querydsl.entity.QTeam.*;
+import static me.choi.querydsl.entity.QTeam.team;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -72,9 +72,9 @@ public class QuerydslBasicTest {
 
     @Test
     public void search() {
-        Member findMember = queryFactory.selectFrom(QMember.member)
-                                        .where(QMember.member.username.eq("member1")
-                                                                      .and(QMember.member.age.eq(10)))
+        Member findMember = queryFactory.selectFrom(member)
+                                        .where(member.username.eq("member1")
+                                                                      .and(member.age.eq(10)))
                                         .fetchOne();
 
         assertThat(findMember.getUsername()).isEqualTo("member1");
@@ -82,7 +82,7 @@ public class QuerydslBasicTest {
 
     @Test
     public void searchAndParam() {
-        Member findMember = queryFactory.selectFrom(QMember.member)
+        Member findMember = queryFactory.selectFrom(member)
                 .where(
                         member.username.eq("member1"),
                         member.age.between(10, 20)
@@ -272,5 +272,33 @@ public class QuerydslBasicTest {
         for (Tuple tuple : result) {
             System.out.println("tuple = " + tuple);
         }
+    }
+
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
+    @Test
+    public void fetchJoinNo() {
+        entityManager.flush();
+        entityManager.clear();
+
+        Member findMember = queryFactory.selectFrom(member)
+                                        .where(member.username.eq("member1"))
+                                        .fetchOne();
+
+        boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
+        assertThat(loaded).isFalse();
+    }
+
+    @Test
+    public void fetchJoinUse() {
+        entityManager.flush();
+        entityManager.clear();
+
+        Member findMember = queryFactory.selectFrom(member)
+                                        .join(member.team, team).fetchJoin()
+                                        .where(member.username.eq("member1"))
+                                        .fetchOne();
+
     }
 }
