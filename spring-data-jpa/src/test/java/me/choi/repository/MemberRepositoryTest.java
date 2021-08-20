@@ -1,6 +1,8 @@
 package me.choi.repository;
 
+import me.choi.dto.MemberDto;
 import me.choi.entity.Member;
+import me.choi.entity.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,9 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Test
     public void testMember() {
@@ -83,5 +88,35 @@ class MemberRepositoryTest {
 
         List<Member> result = memberRepository.findUser("AAA", 10);
         assertThat(result.get(0)).isEqualTo(m1);
+    }
+
+    @Test
+    public void findUsernamelist() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<String> usernameList = memberRepository.findUsernameList();
+        for (String s : usernameList) {
+            System.out.println("s = " + s);
+        }
+    }
+
+    @Test
+    public void findMemberDto() {
+        Member m1 = new Member("AAA", 10);
+        Team team = new Team("teamA");
+        m1.setTeam(team);
+
+        teamRepository.save(team);
+        memberRepository.save(m1);
+
+
+        List<MemberDto> memberDto = memberRepository.findMemberDto();
+        for (MemberDto dto : memberDto) {
+            System.out.println("dto = " + dto);
+        }
     }
 }
